@@ -1,0 +1,68 @@
+import matplotlib.pyplot as plt
+from scipy.io.wavfile import read
+import numpy as np
+import wave
+import os
+
+# Progress update 1: Problem with converting stereo to mono
+# Progress update 2: Taking way too fucking long to read the fucking wav file (prolly due to file size?)
+# Progress update 3: Changed looping method in stereoToMono(audioArray)
+#                    running time improved, plotting not working (backend?)
+
+
+# Take user input in the form of .wav
+# File folder is root/music/<file>
+def takeInput():
+    currentDir = os.path.dirname(__file__)
+    subDir = 'music'  # Sub folder in root
+    fileName = raw_input('Enter wav file: ')
+    wholePath = os.path.join(currentDir, subDir, fileName)
+
+    return wholePath
+
+
+# Check for wav's channel type
+# getnchannels() returns 2 if stereo, 1 if mono
+def isStereo(file):
+
+    if file.getnchannels() == 1:
+        return False  # Nothing to do if mono
+    else:
+        return True  # Convert to mono if stereo
+
+
+# Convert stereo wav file to mono by manipulating 2 dimensional array
+# Stereo wav yields 2 channel in the form of [[left right], [left right] ....]
+def stereoToMono(audioArray):
+
+    monoResult = (audioArray[:, 0]/2) + (audioArray[:, 1]/2)  # (array[:,0]+array[:,1])/2 yields wrong result
+
+    return np.array(monoResult, 'Int16')  # Return in dtype='int16'
+
+
+# Plotting wave for x-axis = time, y-axis = wave signal
+def plotWave(path):
+    file = wave.open(path, 'r')  # Processed wave, read-only mode
+
+    if not isStereo(file):  # If mono, do simple wave read
+        frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
+        signal = np.fromstring(file.readframes(-1), 'Int16')
+    else:  # Else convert to mono, function somewhere up
+        (frameRate, x) = read(path)  # Yields <Frame Rate, Audio Data>
+        signal = stereoToMono(x)
+
+    wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
+
+    print signal
+    print wavTime
+    plt.figure()
+    plt.plot(wavTime, signal)
+    plt.show()
+
+
+# Execution steps, more to be added
+def execute():
+    path = takeInput()
+    plotWave(path)
+
+execute()
