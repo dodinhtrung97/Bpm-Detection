@@ -7,3 +7,4 @@ Return -> Int value bpm
 
 All wav file with stereo channels are to be converted into mono.
 
+NOTE: Do not write everything in 1 python file
