@@ -4,6 +4,7 @@ import numpy as np
 import wave
 import os
 import sys
+
 plt.switch_backend('TkAgg')  # Backend fix
 plt.rcParams['agg.path.chunksize'] = 10000  # For large file
 
@@ -56,7 +57,7 @@ def plotWave(path):
         frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
         signal = np.fromstring(file.readframes(-1), 'Int16')
     else:  # Else convert to mono, function somewhere up
-        (frameRate, x) = read(path)  # Yields <Frame Rate, Audio Data>
+        frameRate, x = read(path)  # Yields <Frame Rate, Audio Data>
         signal = stereoToMono(x)
 
     wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
