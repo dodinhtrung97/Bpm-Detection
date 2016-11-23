@@ -13,6 +13,7 @@ import os
 # Take user input in the form of .wav
 # File folder is root/music/<file>
 def takeInput():
+
     currentDir = os.path.dirname(__file__)
     subDir = 'music'  # Sub folder in root
     fileName = raw_input('Enter wav file: ')
@@ -42,6 +43,7 @@ def stereoToMono(audioArray):
 
 # Plotting wave for x-axis = time, y-axis = wave signal
 def plotWave(path):
+
     file = wave.open(path, 'r')  # Processed wave, read-only mode
 
     if not isStereo(file):  # If mono, do simple wave read
@@ -53,8 +55,6 @@ def plotWave(path):
 
     wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
 
-    print signal
-    print wavTime
     plt.figure()
     plt.plot(wavTime, signal)
     plt.show()
