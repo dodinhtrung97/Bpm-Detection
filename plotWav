@@ -3,7 +3,7 @@ from scipy.io.wavfile import read
 import numpy as np
 import wave
 import os
-
+import sys
 plt.switch_backend('TkAgg')  # Backend fix
 plt.rcParams['agg.path.chunksize'] = 10000  # For large file
 
@@ -12,7 +12,7 @@ plt.rcParams['agg.path.chunksize'] = 10000  # For large file
 # Progress update 3: Changed looping method in stereoToMono(audioArray)
 #                    running time improved, plotting not working but savefig is(backend?)
 # Progress update 4: Show() works, problem was in backend, set new backend to 'TkAgg'
-# Progress update 5: Fix OverflowError with large sized file
+# Progress update 5: Fix OverflowError on large file
 
 
 # Take user input in the form of .wav
@@ -21,6 +21,11 @@ def takeInput():
     currentDir = os.path.dirname(__file__)
     subDir = 'music'  # Sub folder in root
     fileName = raw_input('Enter wav file: ')
+    fileType = fileName.split('.')[1]
+
+    if fileType != "wav":  # Wrong type
+        print 'Type not supported'
+        sys.exit(0)
     wholePath = os.path.join(currentDir, subDir, fileName)
 
     return wholePath
