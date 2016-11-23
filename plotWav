@@ -1,19 +1,20 @@
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 from scipy.io.wavfile import read
 import numpy as np
 import wave
 import os
+plt.switch_backend('TkAgg')
 
 # Progress update 1: Problem with converting stereo to mono
 # Progress update 2: Taking way too fucking long to read the fucking wav file (prolly due to file size?)
 # Progress update 3: Changed looping method in stereoToMono(audioArray)
-#                    running time improved, plotting not working (backend?)
+#                    running time improved, plotting not working but savefig is(backend?)
+# Progress update 4: Show() works, problem was in backend, set new backend to 'TkAgg'
 
 
 # Take user input in the form of .wav
 # File folder is root/music/<file>
 def takeInput():
-
     currentDir = os.path.dirname(__file__)
     subDir = 'music'  # Sub folder in root
     fileName = raw_input('Enter wav file: ')
@@ -25,7 +26,6 @@ def takeInput():
 # Check for wav's channel type
 # getnchannels() returns 2 if stereo, 1 if mono
 def isStereo(file):
-
     if file.getnchannels() == 1:
         return False  # Nothing to do if mono
     else:
@@ -35,7 +35,6 @@ def isStereo(file):
 # Convert stereo wav file to mono by manipulating 2 dimensional array
 # Stereo wav yields 2 channel in the form of [[left right], [left right] ....]
 def stereoToMono(audioArray):
-
     monoResult = (audioArray[:, 0]/2) + (audioArray[:, 1]/2)  # (array[:,0]+array[:,1])/2 yields wrong result
 
     return np.array(monoResult, 'Int16')  # Return in dtype='int16'
@@ -43,7 +42,6 @@ def stereoToMono(audioArray):
 
 # Plotting wave for x-axis = time, y-axis = wave signal
 def plotWave(path):
-
     file = wave.open(path, 'r')  # Processed wave, read-only mode
 
     if not isStereo(file):  # If mono, do simple wave read
