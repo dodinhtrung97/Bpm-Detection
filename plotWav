@@ -22,7 +22,7 @@ def takeInput():
     currentDir = os.path.dirname(__file__)
     subDir = 'music'  # Sub folder in root
     fileName = raw_input('Enter wav file: ')
-    fileType = fileName.split('.')[1]
+    fileType = fileName.split('.')[-1]
 
     if fileType != "wav":  # Wrong type
         print 'Type not supported'
@@ -35,10 +35,10 @@ def takeInput():
 # Check for wav's channel type
 # getnchannels() returns 2 if stereo, 1 if mono
 def isStereo(file):
-    if file.getnchannels() == 1:
-        return False  # Nothing to do if mono
-    else:
+    if file.getnchannels() == 2:
         return True  # Convert to mono if stereo
+    else:
+        return False  # Nothing to do if mono
 
 
 # Convert stereo wav file to mono by manipulating 2 dimensional array
