@@ -25,10 +25,13 @@ def takeInput():
     fileName = raw_input('Enter wav file: ')
     fileType = fileName.split('.')[-1]
 
+    wholePath = os.path.join(currentDir, subDir, fileName)
     if fileType != "wav":  # Wrong type
         print 'Type not supported'
         sys.exit(0)
-    wholePath = os.path.join(currentDir, subDir, fileName)
+    elif not os.path.exists(wholePath):  # File doesn't exist
+        print 'Cannot find file'
+        sys.exit(0)
 
     return wholePath
 
@@ -36,10 +39,7 @@ def takeInput():
 # Check for wav's channel type
 # getnchannels() returns 2 if stereo, 1 if mono
 def isStereo(file):
-    if file.getnchannels() == 2:
-        return True  # Convert to mono if stereo
-    else:
-        return False  # Nothing to do if mono
+    return file.getnchannels() == 2
 
 
 # Convert stereo wav file to mono by manipulating 2 dimensional array
@@ -54,12 +54,12 @@ def stereoToMono(audioArray):
 def plotWave(path):
     file = wave.open(path, 'r')  # Processed wave, read-only mode
 
-    if not isStereo(file):  # If mono, do simple wave read
-        frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
-        signal = np.fromstring(file.readframes(-1), 'Int16')
-    else:  # Else convert to mono, function somewhere up
+    if isStereo(file):  # If Stereo, convert to mono, function somewhere up
         frameRate, x = read(path)  # Yields <Frame Rate, Audio Data>
         signal = stereoToMono(x)
+    else:  # If mono, do simple wave read
+        frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
+        signal = np.fromstring(file.readframes(-1), 'Int16')
 
     wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
 
