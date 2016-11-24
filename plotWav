@@ -5,8 +5,13 @@ import wave
 import os
 import sys
 
-plt.switch_backend('TkAgg')  # Backend fix
-plt.rcParams['agg.path.chunksize'] = 10000  # For large file
+# Backend fix, changed to type TkAgg, might not occur in other debugger
+
+plt.switch_backend('TkAgg')
+
+# OverflowError fix, increased fixed chunksize
+
+plt.rcParams['agg.path.chunksize'] = 10000
 
 
 # Take user input in the form of .wav
@@ -18,10 +23,16 @@ def takeInput():
     fileType = fileName.split('.')[-1]
 
     wholePath = os.path.join(currentDir, subDir, fileName)
-    if fileType != "wav":  # Wrong type
+
+    # Wrong type
+
+    if fileType != "wav":
         print 'Type not supported'
         sys.exit(0)
-    elif not os.path.exists(wholePath):  # File doesn't exist
+
+    # File doesn't exist
+
+    elif not os.path.exists(wholePath):
         print 'Cannot find file'
         sys.exit(0)
 
@@ -47,14 +58,19 @@ def stereoToMono(audioArray):
 def processWave(path):
     file = wave.open(path, 'r')  # Processed wave, read-only mode
 
-    if isStereo(file):  # If Stereo, convert to mono, function somewhere up
+    # If Stereo, convert to mono, function somewhere up
+
+    if isStereo(file):
         frameRate, x = read(path)  # Yields <Frame Rate, Audio Data>
         signal = stereoToMono(x)
-    else:  # If mono, do simple wave read
+
+    # If mono, do simple wave read
+
+    else:
         frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
         signal = np.fromstring(file.readframes(-1), 'Int16')
 
-    wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
+    wavTime = np.linspace(0, len(signal)/frameR ate, len(signal))  # Math stuff, nothing to see here
 
     plt.figure()
     plt.xlabel('Time (s)')
@@ -65,7 +81,7 @@ def processWave(path):
     return signal
 
 
-# Execution steps, this should be its own file later
+# Execution steps, to be moved to its own file later
 def execute():
     path = takeInput()
     processWave(path)
