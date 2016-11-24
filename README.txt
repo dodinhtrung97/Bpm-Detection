@@ -6,7 +6,7 @@ Expected user input -> .wav file with directory [root/music/<file name>]
 Return -> Int value bpm
 Coded in Pycharm, backend error might not occur in other debugger
 
-All wav file with stereo channels are to be converted into mono.
+All wav file with stereo channels are to be converted into mono (already implemented in plotWav).
 
 Main file Execute (not yet implemented) will calling plotWav for basic and whatever the main process file will be for output
 
