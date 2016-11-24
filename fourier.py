@@ -1,4 +1,3 @@
-#%matplotlib inline
 import numpy as np
 from matplotlib import pyplot as plt
 from math import sin, cos, exp, pi, sqrt
@@ -9,7 +8,7 @@ import math
 Fourier series here
 
 """
-x = np.linspace(0,5,500)
+
 
 
 
@@ -28,6 +27,8 @@ I split these into two functions so its easier, you know
 def integrate_ai(x, i, L):
     """
     This integrates the half of the function 
+
+    Also don't be scared, this is just the modified in class code.
     """
     xs = np.linspace(0, L, 100)
     h = xs[1] - xs[0]
@@ -67,11 +68,14 @@ def f(x, n, L=1.5):
             s += (integrate_ai(x, i, L)*cos(i*math.pi*(x/float(L)))) + (integrate_bi(x, i, L)*sin(i*math.pi*(x/float(L))))
     return s
 
-y = [step(xx) for xx in x]
-fy = np.array([f(xx, 3) for xx in x])
 
-plt.plot(x,y,label='step')
-plt.plot(x,fy)
-plt.grid()
-plt.legend()
+
+# x = np.linspace(0,5,500)
+# y = [step(xx) for xx in x]
+# fy = np.array([f(xx, 20) for xx in x])
+# plt.plot(x,y,label='step')
+# plt.plot(x,fy)
+# plt.grid()
+# plt.legend()
+# plt.show()
 

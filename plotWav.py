@@ -4,6 +4,7 @@ import numpy as np
 import wave
 import os
 import sys
+from fourier import *
 
 # Backend fix, changed to type TkAgg, might not occur in other debugger
 
@@ -87,4 +88,12 @@ def execute():
     processWave(path)
 
 
+# x = np.linspace(0,5,500)
+# y = [step(xx) for xx in x]
+# fy = np.array([f(xx, 5) for xx in x])
+# plt.plot(x,y,label='step')
+# plt.plot(x,fy)
+# plt.grid()
+# plt.legend()
+# plt.show()
 execute()
