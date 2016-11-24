@@ -1,6 +1,6 @@
 Numerical Method Project - Beat Detection
 Group: Sky 5780182
-	   Sunny <ID>
+	   Sunny 5780642
 
 Expected user input -> .wav file with directory [root/music/<file name>]
 Return -> Int value bpm
