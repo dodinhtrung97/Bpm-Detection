@@ -8,14 +8,6 @@ import sys
 plt.switch_backend('TkAgg')  # Backend fix
 plt.rcParams['agg.path.chunksize'] = 10000  # For large file
 
-# Progress update 1: Problem with converting stereo to mono
-# Progress update 2: Taking way too fucking long to read the fucking wav file (prolly due to file size?)
-# Progress update 3: Changed looping method in stereoToMono(audioArray)
-#                    running time improved, plotting not working but savefig is(backend?)
-# Progress update 4: Show() works, problem was in backend, set new backend to 'TkAgg'
-# Progress update 5: Fix OverflowError on large file
-# Progress update 6: Minor bug fixed, added x-y labels for aesthetic values (rofl)
-
 
 # Take user input in the form of .wav
 # File folder is root/music/<file>
@@ -50,8 +42,9 @@ def stereoToMono(audioArray):
     return np.array(monoResult, 'Int16')  # Return in dtype='int16'
 
 
-# Plotting wave for x-axis = time, y-axis = wave signal
-def plotWave(path):
+# Plot wave for x-axis = time, y-axis = wave signal
+# Return wave length for main processing
+def processWave(path):
     file = wave.open(path, 'r')  # Processed wave, read-only mode
 
     if isStereo(file):  # If Stereo, convert to mono, function somewhere up
@@ -69,10 +62,12 @@ def plotWave(path):
     plt.plot(wavTime, signal)
     plt.show()
 
+    return signal
 
-# Execution steps, more to be added
+
+# Execution steps, this should be its own file later
 def execute():
     path = takeInput()
-    plotWave(path)
+    processWave(path)
 
 execute()
