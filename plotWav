@@ -69,5 +69,3 @@ def processWave(path):
 def execute():
     path = takeInput()
     processWave(path)
-
-execute()
