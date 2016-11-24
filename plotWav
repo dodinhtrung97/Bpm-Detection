@@ -14,6 +14,7 @@ plt.rcParams['agg.path.chunksize'] = 10000  # For large file
 #                    running time improved, plotting not working but savefig is(backend?)
 # Progress update 4: Show() works, problem was in backend, set new backend to 'TkAgg'
 # Progress update 5: Fix OverflowError on large file
+# Progress update 6: Minor bug fixed, added x-y labels for aesthetic values (rofl)
 
 
 # Take user input in the form of .wav
@@ -63,6 +64,8 @@ def plotWave(path):
     wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
 
     plt.figure()
+    plt.xlabel('Time (s)')
+    plt.ylabel('Wavelength (fuck knows)')
     plt.plot(wavTime, signal)
     plt.show()
 
