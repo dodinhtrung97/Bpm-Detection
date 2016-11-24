@@ -70,7 +70,7 @@ def processWave(path):
         frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
         signal = np.fromstring(file.readframes(-1), 'Int16')
 
-    wavTime = np.linspace(0, len(signal)/frameR ate, len(signal))  # Math stuff, nothing to see here
+    wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
 
     plt.figure()
     plt.xlabel('Time (s)')
