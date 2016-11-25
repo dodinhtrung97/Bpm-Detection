@@ -1,4 +1,3 @@
-
 from math import *
 
 # Test case
@@ -9,7 +8,7 @@ result = [sin(k) for k in xrange(Testnum)]
 # Pre-processed output
 
 for i in xrange(Testnum):
-    print result[i]
+    print result[i] 
 
 
 # Create spectrogram analyser
