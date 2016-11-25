@@ -2,13 +2,8 @@ from math import *
 
 # Test case
 
-Testnum = 8
-result = [sin(k) for k in xrange(Testnum)]
-
-# Pre-processed output
-
-for i in xrange(Testnum):
-    print result[i]
+N = 8
+result = [sin(k) for k in xrange(N)]
 
 
 # Create spectrogram analyser
@@ -55,10 +50,15 @@ def discreteHaarWaveletTransform(x):
 
         length >>= 1
 
-
 res = discreteHaarWaveletTransform(result)
 
+# Pre-processed output
+
+for j in xrange(N):
+    print result[j]
+
+print "\n"
 # Post-processed output
 
-for i in xrange(Testnum):
+for i in xrange(N):
     print res[i]
