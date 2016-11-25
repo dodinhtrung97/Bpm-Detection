@@ -78,7 +78,7 @@ def processWave(path):
     plt.plot(wavTime, signal)
     plt.show()
 
-    return signal
+    return frameRate, signal
 
 
 # Execution steps, to be moved to its own file later

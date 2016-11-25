@@ -19,4 +19,8 @@ Updates on plotWav file:
 # Progress update 5: Fixed OverflowError on large file
 # Progress update 6: Minor bug fixed, added x-y labels for aesthetic values (rofl)
 
+Updates on HaarWaveletTransform file:
+# Progress update 1: Logic unclear, yields wrong answer
+# Progress update 2: Results seem to be similar to python provided lib, should test on larger cases
+
 NOTE: Do not write everything in 1 python file

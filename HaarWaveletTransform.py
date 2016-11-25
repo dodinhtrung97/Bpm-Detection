@@ -2,7 +2,11 @@ from math import *
 
 # Test case
 
+<<<<<<< HEAD
 Testnum = 8
+=======
+Testnum = 32
+>>>>>>> 7d1e89b7392624e97650e934cf96e5ec01396da0
 result = [sin(k) for k in xrange(Testnum)]
 
 # Pre-processed output
@@ -28,10 +32,17 @@ def discreteHaarWaveletTransform(x):
 
     while True:
         for i in xrange(0, length):
+<<<<<<< HEAD
             sum = x[i*2] + x[i*2 + 1]
             difference = x[i*2] - x[i*2 + 1]
             output[i] = sum
             output[length+i] = difference
+=======
+            sum = x[i * 2] + x[i * 2 + 1]
+            difference = x[i * 2] - x[i * 2 + 1]
+            output[i] = sum
+            output[length + i] = difference
+>>>>>>> 7d1e89b7392624e97650e934cf96e5ec01396da0
 
         # Break condition
 
