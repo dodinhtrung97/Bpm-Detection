@@ -34,7 +34,7 @@ def extractFrequency_autocor(signal, frameRate):
 
     # Convolve signal and signal[::1] using built in fast Fourier
 
-    cor = fftconvolve(signal, signal[::-1], mode='full')  # Output size 'full', output the full convolution of inputs
+    cor = fftconvolve(signal, signal[::-1], 'full')  # Output size 'full', output the full convolution of inputs
     cor = cor[len(cor)/2:]
 
     # Detect first Minima
@@ -52,3 +52,15 @@ def extractFrequency_autocor(signal, frameRate):
     result = frameRate/interpole
 
     return result
+
+def freq_from_crossings(signal, fs):
+    # Find all indices right before a rising-edge zero crossing
+    indices = find((signal[1:] >= 0) & (signal[:-1] < 0))
+
+    # More accurate, using linear interpolation to find intersample zero-crossings
+    crossings = [i - signal[i] / (signal[i+1] - signal[i]) for i in indices]
+
+    # Some other interpolation based on neighboring points might be better.
+    # Spline, cubic, whatever
+
+    return fs / mean(diff(crossings))
