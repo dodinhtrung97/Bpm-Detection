@@ -2,10 +2,9 @@ from numpy import argmax, mean, diff
 from matplotlib.mlab import find
 from scipy.signal import fftconvolve
 
+
 # Calculate position of a sample maxima given nearby samples
 # Use quadratic interpolation
-
-
 def findMaxima(vector, index):
 
     # Input type: vector, index of said vector
@@ -23,10 +22,9 @@ def findMaxima(vector, index):
 
     return posX, posY
 
+
 # Calculate frequency with auto-correlation
 # Note: Does not work for musical instruments, according to the internet
-
-
 def extractFrequency_autocor(signal, frameRate):
 
     # Calculate auto-correlation, discount negative lags
@@ -41,6 +39,7 @@ def extractFrequency_autocor(signal, frameRate):
     cor = cor[len(cor)/2:]
 
     # Detect first Minima
+
     start = find(diff(cor) > 0)[0]
 
     # Detect peak after first Minima

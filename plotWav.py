@@ -51,7 +51,7 @@ def isStereo(file):
 def stereoToMono(audioArray):
     monoResult = (audioArray[:, 0]/2) + (audioArray[:, 1]/2)  # (array[:,0]+array[:,1])/2 yields wrong result
 
-    return np.array(monoResult, 'float64')  # Return in dtype='int16'
+    return np.array(monoResult, 'float64')  # Return in dtype='float64'
 
 
 # Plot wave for x-axis = time, y-axis = wave signal
