@@ -49,4 +49,8 @@ def extractFrequency_autocor(signal, frameRate):
     peak = argmax(cor[start:]) + start  # Peak might occur between samples
     interpole = findMaxima(cor, peak)[0]
 
-    return frameRate / interpole
+    # Result frequency in Hz
+
+    result = frameRate/interpole
+
+    return result
