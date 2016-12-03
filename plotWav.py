@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 from scipy.io.wavfile import read
+import ExtractFrequency as freq
 import numpy as np
 import wave
 import os
@@ -50,7 +51,7 @@ def isStereo(file):
 def stereoToMono(audioArray):
     monoResult = (audioArray[:, 0]/2) + (audioArray[:, 1]/2)  # (array[:,0]+array[:,1])/2 yields wrong result
 
-    return np.array(monoResult, 'Int16')  # Return in dtype='int16'
+    return np.array(monoResult, 'float64')  # Return in dtype='int16'
 
 
 # Plot wave for x-axis = time, y-axis = wave signal
@@ -68,7 +69,7 @@ def processWave(path):
 
     else:
         frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
-        signal = np.fromstring(file.readframes(-1), 'Int16')
+        signal = np.fromstring(file.readframes(-1), 'float64')
 
     wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
 
@@ -78,10 +79,13 @@ def processWave(path):
     plt.plot(wavTime, signal)
     plt.show()
 
-    return frameRate, signal
+    return signal, frameRate
 
 
 # Execution steps, to be moved to its own file later
 def execute():
     path = takeInput()
-    processWave(path)
+    signal, frameRate = processWave(path)
+    print(freq.extractFrequency_autocor(signal, frameRate))
+
+execute()
