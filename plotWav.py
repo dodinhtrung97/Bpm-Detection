@@ -86,6 +86,8 @@ def processWave(path):
 def execute():
     path = takeInput()
     signal, frameRate = processWave(path)
-    print(freq.extractFrequency_autocor(signal, frameRate))
+
+    print np.fft.rfft(signal)
+    #print "Frequency (Hz): ",(freq.extractFrequency_autocor(signal, frameRate))
 
 execute()

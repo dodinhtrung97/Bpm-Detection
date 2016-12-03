@@ -2,7 +2,6 @@ from numpy import argmax, mean, diff
 from matplotlib.mlab import find
 from scipy.signal import fftconvolve
 
-
 # Calculate position of a sample maxima given nearby samples
 # Use quadratic interpolation
 def findMaxima(vector, index):
