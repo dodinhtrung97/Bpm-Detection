@@ -46,10 +46,11 @@ def detectBpm(signal, frameRate, cA=[], cDsum=[], level=4):
 
     # Auto Correlation starts here
 
-    correlation = np.correlate(cDsum, cDsum, 'full')
+    firstCorrelation = np.correlate(cDsum, cDsum, 'full')
+    secCorrelation = np.correlate(firstCorrelation, firstCorrelation,'full')
 
-    midpoint = len(correlation)/2
-    centerCorrelation = correlation[midpoint:]
+    midpoint = len(secCorrelation)/2
+    centerCorrelation = secCorrelation[midpoint:]
     peak = mis.detectPeak(centerCorrelation[int(min):int(max)])
 
     adjustedPeak = peak[0] + min
