@@ -1,10 +1,9 @@
 from matplotlib import pyplot as plt
 from scipy.io.wavfile import read
-import ExtractFrequency as freq
 import numpy as np
 import wave
 import os
-import sys
+
 
 # Backend fix, changed to type TkAgg, might not occur in other debugger
 
@@ -21,23 +20,12 @@ def takeInput():
     currentDir = os.path.dirname(__file__)
     subDir = 'music'  # Sub folder in root
     fileName = raw_input('Enter wav file: ')
-    fileType = fileName.split('.')[-1]
 
     wholePath = os.path.join(currentDir, subDir, fileName)
 
-    # Wrong type
+    # fileName for ProcessFrequency
 
-    if fileType != "wav":
-        print 'Type not supported'
-        sys.exit(0)
-
-    # File doesn't exist
-
-    elif not os.path.exists(wholePath):
-        print 'Cannot find file'
-        sys.exit(0)
-
-    return wholePath
+    return wholePath, fileName.rsplit('.',1)[0]
 
 
 # Check for wav's channel type
@@ -71,23 +59,25 @@ def processWave(path):
         frameRate = file.getframerate()  # Get frame rate for time axis (x-axis)
         signal = np.fromstring(file.readframes(-1), 'float64')
 
-    wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
-
-    plt.figure()
-    plt.xlabel('Time (s)')
-    plt.ylabel('Wavelength (fuck knows)')
-    plt.plot(wavTime, signal)
-    plt.show()
+    ######### Draw Graph
+    # wavTime = np.linspace(0, len(signal)/frameRate, len(signal))  # Math stuff, nothing to see here
+    #
+    # plt.figure()
+    # plt.xlabel('Time (s)')
+    # plt.ylabel('Wavelength (fuck knows)')
+    # plt.plot(wavTime, signal)
+    # plt.show()
 
     return signal, frameRate
 
+# Detect peak
+def detectPeak(signal):
+    max = np.amax(abs(signal))
+    peak = np.where(signal == max)
 
-# Execution steps, to be moved to its own file later
-def execute():
-    path = takeInput()
-    signal, frameRate = processWave(path)
+    # If no max found then peak is negative
 
-    print np.fft.rfft(signal)
-    #print "Frequency (Hz): ",(freq.extractFrequency_autocor(signal, frameRate))
+    if len(peak[0]) == 0:
+        peak = np.where(signal == -max)
 
-execute()
+    return peak
