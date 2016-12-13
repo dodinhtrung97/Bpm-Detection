@@ -26,7 +26,7 @@ def detectBpm(signal, frameRate, cA=[], cDsum=[], level=4):
 
         # Low pass filtering signal
 
-        cD = sig.lfilter([0.01], [1 - 0.99], cD)
+        cD = sig.lfilter([0.01], [0.01], cD)
 
         # For later reconstruction
 
@@ -34,12 +34,13 @@ def detectBpm(signal, frameRate, cA=[], cDsum=[], level=4):
         cD -= np.mean(cD)
 
         # Combine signals for Auto Correlation
+
         cDsum = cD[:cD_minlen] + cDsum
 
     # Prep for auto correlation
     # Filter cA
 
-    cA = sig.lfilter([0.01], [1 - 0.99], cA)
+    cA = sig.lfilter([0.01], [0.01], cA)
     cA = abs(cA)
     cA -= np.mean(cA)
     cDsum += cA[:cD_minlen]
