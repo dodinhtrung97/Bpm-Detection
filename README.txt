@@ -6,23 +6,7 @@ Expected user input -> .wav file with directory [root/music/<file name>]
 Return -> Int value bpm
 Coded in Pycharm, backend error might not occur in other debugger
 
-Read Auto Correlation
+All wav file with stereo channels are to be converted into mono.
+The base algorithm follows the basic steps in detecting bpm described in "Audio Analysis using the Discrete Wavelet Transform" by George Tzanetakis, George Essl, and Perry Cook
 
-All wav file with stereo channels are to be converted into mono (already implemented in plotWav).
-
-Main file Execute (not yet implemented) will calling plotWav for basic and whatever the main process file will be for output
-
-Updates on plotWav file:
-# Progress update 1: Problem with converting stereo to mono
-# Progress update 2: Taking way too fucking long to read the fucking wav file (prolly due to file size?)
-# Progress update 3: Changed looping method in stereoToMono(audioArray)
-#                    running time improved, plotting not working but savefig is(backend?)
-# Progress update 4: Show() works, problem was in backend, set new backend to 'TkAgg'
-# Progress update 5: Fixed OverflowError on large file
-# Progress update 6: Minor bug fixed, added x-y labels for aesthetic values (rofl)
-
-Updates on HaarWaveletTransform file:
-# Progress update 1: Logic unclear, yields wrong answer
-# Progress update 2: Results seem to be similar to python provided lib, should test on larger cases
-
-NOTE: Do not write everything in 1 python file
+Takes very long for a large Wav file so it's better you don't even try.
