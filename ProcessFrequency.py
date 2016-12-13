@@ -1,4 +1,5 @@
 import audioop
+import os
 import wave
 from numpy import mean, diff
 from matplotlib.mlab import find
@@ -34,6 +35,8 @@ def downsample(src, dst, inFreq, outFreq=3, inChannel=1, outChannel=1):
     try:
         convert = audioop.ratecv(signal, 2, inChannel, inFreq, outFreq, None)
     except:
+        write.close()
+        os.remove(dst)
         print "Can't downsample!!! Using original file"
 
         # If false then whatever, fuck the downsampling
@@ -42,6 +45,8 @@ def downsample(src, dst, inFreq, outFreq=3, inChannel=1, outChannel=1):
     try:
         write.writeframes(convert)
     except:
+        write.close()
+        os.remove(dst)
         print "Can't write file!!!"
 
         # If false then whatever, fuck the downsampling
