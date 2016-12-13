@@ -6,7 +6,7 @@ import bpmDetection as detectBpm
 import ProcessFrequency as freq
 
 # Use bpmDetection and loop through a window of 10s
-def finalSteps(signal, frameRate):
+def bpmWindow(signal, frameRate):
     signalLength = len(signal)
     sampleWindow = (10 * frameRate)  # Window of 10 sec to scan through
     firstSample = 0
@@ -60,4 +60,4 @@ if __name__ == '__main__':
         signal, frameRate = mis.processWave(post_proc_file)
 
     print "Estimated Frequency:", freq.estimateFrequency_zeroCross(signal, frameRate)
-    print "Estimated BPM:", finalSteps(signal, frameRate)
+    print "Estimated BPM:", bpmWindow(signal, frameRate)
