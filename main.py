@@ -7,17 +7,13 @@ import ProcessFrequency as freq
 
 # Use bpmDetection and loop through a window of 10s
 def finalSteps(signal, frameRate):
-    data = []
-    correl = []
-
     signalLength = len(signal)
     sampleWindow = (10 * frameRate)  # Window of 10 sec to scan through
     firstSample = 0
     maxWindow = signalLength / sampleWindow
-    allBpms = np.zeros(maxWindow)
+    allBpms = np.zeros(maxWindow)  # Have to do this for indexing
 
     for i in xrange(0, maxWindow):
-        data = signal[firstSample:firstSample + sampleWindow]
         bpm = detectBpm.detectBpm(signal, frameRate)
 
         if bpm:
